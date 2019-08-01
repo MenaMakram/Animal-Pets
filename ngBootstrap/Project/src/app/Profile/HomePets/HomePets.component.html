@@ -1,0 +1,128 @@
+<div class="">
+
+
+
+  </div>
+  <div class="card-header">
+    <h3 class="card-title">About Me
+    <button class="btn btn-sm btn-outline-light" style="float: right" *ngIf="isopen"  (click)="open(content)">Edit</button>
+  </h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+
+    <strong><i class="fas fa-book mr-1"></i> Description</strong>
+
+    <p class="text-muted">
+      {{homePets.Description}}
+    </p>
+
+    <hr>
+
+    <strong><i class="fas fa-map-marker-alt mr-1"></i>Available Place</strong>
+
+    <p class="text-muted">{{homePets.AvailablePlace}}</p>
+
+    <hr>
+
+    <strong><i class="fas fa-pencil-alt mr-1"></i> Number Of Rooms</strong>
+
+    <p class="text-muted">
+      {{homePets.NumberOfRooms}}
+    </p>
+
+    <hr>
+
+    <strong><i class="far fa-money-bill-alt mr-1"></i> Price Per Night</strong>
+
+    <p class="text-muted">{{homePets.PriceForNight}}$</p>
+
+    <hr>
+
+        <strong><i class="far fa-file-alt mr-1"></i> Photo
+          <button class="btn btn-sm btn-outline-primary" *ngIf="isopen"  (click)="open3(content3,homePets)" style="float: right">Add Photo</button>
+        </strong>
+  <br>
+  <br>
+
+  <ngb-carousel *ngIf="homePets.photos != null">
+      <ng-template ngbSlide *ngFor="let photo of homePets.photos" style="width: 50%;height: 50%;">
+        <img src="http://localhost:61646/Image/{{photo.Photo}}" alt="Random first slide" width="100%" height="100%">
+        <div class="carousel-caption">
+            <button class="btn btn-sm btn-outline-light" *ngIf="isopen"  (click)="deletePhoto(photo.ID)">X</button>
+        </div>
+      </ng-template>
+
+    </ngb-carousel>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <div class="modal-body">
+      <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+        <div class="form-group">
+          <label for="inputFName" class="col-sm-2 control-label">Description</label>
+
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control" #Description="ngModel" name="Description" placeholder="Description" [(ngModel)]="this.homePets.Description"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="PriceForNight" class="col-sm-2 control-label">PriceForNight</label>
+
+          <div class="col-sm-10">
+            <input type="number" class="form-control" #PriceForNight="ngModel" name="PriceForNight" placeholder="PriceForNight" [(ngModel)]="this.homePets.PriceForNight">
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="AvailablePlace" class="col-sm-2 control-label">AvailablePlace</label>
+
+          <div class="col-sm-10">
+            <input type="number" class="form-control" #AvailablePlace="ngModel" name="AvailablePlace" placeholder="AvailablePlace" [(ngModel)]="this.homePets.AvailablePlace">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="NumberOfRooms" class="col-sm-2 control-label">NumberOfRooms</label>
+
+          <div class="col-sm-10">
+            <input type="number" class="form-control" #NumberOfRooms="ngModel" name="NumberOfRooms" placeholder="NumberOfRooms" [(ngModel)]="this.homePets.NumberOfRooms">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button  class="btn btn-danger" >Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</ng-template>
+<ng-template #content3 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Home Pets Photo</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+          <div class="form-group">
+              <label for="HomePetsPhoto" class="col-sm-4 control-label">Home Pets Photo</label>
+
+              <div class="col-sm-10">
+                  <input required type="file" class="form-control" #HomePetsPhoto="ngModel" name="HomePetsPhoto" placeholder="HomePetsPhoto"
+                  [(ngModel)]="this.homePets.photos" (change)="handleFileInput($event.target.files)" multiple>
+               </div>
+          </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button class="btn btn-danger">Save</button>
+                </div>
+              </div>
+  </form>
+  </div>
+</ng-template>

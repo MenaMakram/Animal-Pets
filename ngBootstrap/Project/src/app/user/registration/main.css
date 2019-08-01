@@ -1,0 +1,99 @@
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@import url('https://fonts.googleapis.com/css?family=Numans');
+.container{
+  background-image: url('../../../assets/img/14320792-illustration-of-animal-cartoon.jpg');
+background-size: 100% 100%;
+background-repeat: no-repeat;
+
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 165%;
+width: 850px;
+margin-top: 3%;
+align-content: center;
+display: flex;
+justify-content: center;
+}
+
+.btn{background-color: #FFC312;}
+.card{
+height: 800px;
+margin-top: auto;
+margin-bottom: auto;
+width: 850px;
+padding: 20px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+
+form{
+  margin: 20px 16px;
+  /* background-color: #EEE;
+  border: 1px solid #EEE; */
+  padding: 20px;
+  z-index: 2;
+}
+input {
+  margin-bottom: 20px;
+  /* border: none; */
+  border:2px solid  gray;
+}
+/* You can add global styles to this file, and also import other style files */
+
+/* .row{
+  background-image: url('../../../assets/img/images.jpg');
+  background-size:  cover;
+  max-width: 100%;
+  text-align: center
+
+} */
+
+/*
+input.form-control:focus{
+  box-shadow: none;
+
+}
+
+button[type=submit].btn{
+  border-radius: 20px;
+
+}
+
+div.form-group label{
+  color: black;
+  font-weight: bold;
+
+}
+
+div.form-group.required>label:first-child:after{
+  content:'*';
+  color: #dc3545;
+padding-left: 5px;
+}
+
+#toast-container > div {
+  opacity:1;
+}
+
+form{
+  margin: 0px 16px;
+}
+
+div.side-header{
+  border:3px solid black;
+
+}
+input,select,button{
+  width: 80%;
+  margin-left: 20%;
+
+}
+.alert
+{height: 20px;
+padding-top: 0px;
+font-size: 14px
+} */

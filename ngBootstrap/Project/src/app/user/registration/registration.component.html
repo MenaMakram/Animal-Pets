@@ -1,0 +1,299 @@
+
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+
+<form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()"
+>
+
+  <div class="row">
+        <div class="col-md-6">
+            <div class="form-group required" style="display: inline">
+
+              <input class="form-control" placeholder="First name" formControlName="FirstName" type="text"  >
+
+              <!-- <div class="valid-feedback">Valid.</div> -->
+              <!-- <div class="invalid-feedback">Frist name is invaild.</div> -->
+
+              <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('FirstName').touched && service.formModel.get('FirstName').errors?.required">
+                  this Frist Name is invaild .....
+              </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group required" style="display: inline">
+              <input minlength="4" class="form-control" placeholder="Last name" formControlName="LastName" type="text" >
+              <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('LastName').touched && service.formModel.get('LastName').errors?.required">
+                  this Last Name is invaild .....
+            </div>
+          </div>
+        </div>
+  </div>
+
+
+
+  <div class="row">
+        <div class="form-group col-md-12">
+          <input class="form-control" placeholder="User name" formControlName="UserName" type="text" >
+          <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">
+              this User Name is invaild  and is Minimum 4 characters  .....
+          </div>
+        </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+        <input class="form-control" placeholder="Email..." formControlName="Email" type="email" >
+        <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid email address.</label> -->
+        <!-- <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">
+          this email is invaild .....
+        </div> -->
+        <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid email address.</div>
+
+    </div>
+  </div>
+
+  <div class="row">
+      <div formGroupName="Passwords" class="col-md-6">
+        <div class="form-group required">
+            <input type="password" placeholder="Password..." class="form-control" formControlName="Password">
+            <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">
+           this Password is required.....
+            </div>
+            <div class="alert alert-danger" role="alert"  *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">
+              this Password is Minimum 4 characters .....
+            </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group required">
+              <input type="password" class="form-control" placeholder="confirm Password....." formControlName="ConfirmPassword" name="ConfirmPassword">
+              <div class="alert alert-danger" role="alert"  *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</div>
+              <label class="text-danger" role="alert" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-6" >
+      <input class="form-control" formControlName="Phone" placeholder="phone...." type="text">
+    </div>
+    <div class="form-group  col-md-6">
+        <input class="form-control" formControlName="Address" placeholder="address...." type="text">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+        <div class="form-group ">
+          <select class="form-control " (change)="changeRole($event)" formControlName="TypeRegistration">
+            <option  class="dropdown-item" value="Client" for selected>Client</option>
+            <option *ngFor="let role of Roles"class="dropdown-item" [value]="role" for>{{role}}</option>
+          </select>
+        </div>
+        <div class="form-group " *ngIf="clientDiv">
+            <input type="submit" value="sign up" class="btn btn-primary">
+        </div>
+    </div>
+  </div>
+
+  <div class="form-group text-center row" *ngIf="TrainerDiv">
+    <div class="col-md-6">
+        <input type="text " class="form-control" style="justify-content:center" placeholder="Your job title " formControlName="JobTitle">
+        <input type="text " class="form-control" placeholder="Your training place " formControlName="TrainePlace"
+        style="margin-top: 35px;margin-bottom: 35px;">
+        <input type="text " class="form-control" placeholder="Your price per hour  " formControlName="PricePerHour">
+    </div>
+    <div class="col-md-6">
+        <textarea class="form-control " style="width: 100% ; "  placeholder="your OverView....." formControlName="OverView"></textarea><br>
+        <textarea class="form-control " style="width: 100%; " placeholder="your Courses....." formControlName="Courses"></textarea><br>
+    </div>
+      <div class="col-md-6">
+      <input type="submit" style="float: left" value="sign up" class="btn btn-primary"  >
+    </div>
+
+
+
+  </div>
+
+
+  <div class="row" *ngIf="doctorDiv">
+
+        <div class="col-md-3"  style="margin-top: 5px;color: whitesmoke">
+           Has Clinic ?
+        </div>
+
+        <div class="col-md-5" style="text-align: center">
+          <div class="row">
+
+            <span  class="col-md-3" style="margin-top: 5px;color: whitesmoke">Yes:</span>
+            <span class="col-md-1">
+                <input type="radio" class="form-control1" name="HasClinic"  formControlName="HasClinic" [(ngModel)]="hasClinic" value="true" (change)="onItemChange($event)">
+            </span>
+
+            <span class="col-md-3" style="margin-top: 5px;color: whitesmoke">No:</span>
+            <span  class="col-md-1">
+              <input type="radio" class="form-control1" name="HasClinic" formControlName="HasClinic" [(ngModel)]="hasClinic" value="false" (change)="onItemChange($event)">
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+            <input type="text" class="form-control" *ngIf="hasClinic" placeholder="Your clinic" formControlName="DoctorClinics">
+        </div>
+
+        <div class="col-md-12">
+         <input type="submit"  value="sign up" class="btn btn-primary">
+      </div>
+  </div>
+
+
+  <div class="form-group text-center row" *ngIf="House">
+    <div class="col-md-6">
+      <input type="number " class="form-control" placeholder="your available place " formControlName="AvailablePlace">
+      <input type="number " class="form-control" placeholder="your NumberOfRooms " formControlName="NumberOfRooms">
+      <input type="number " class="form-control" placeholder="your PriceForNight  " formControlName="PriceForNight">
+    </div>
+    <div class="col-md-6">
+      <textarea class="form-control " style="width: 100%;height: 170px;" placeholder="your Description ....." formControlName="Description"></textarea>
+    </div>
+    <div class="col-md-6">
+      <input type="submit" style="float: left" value="sign up" class="btn btn-primary">
+  </div>
+  </div>
+
+
+
+
+
+</form>
+
+</div></div></div>
+
+<!-- <div class="row " >
+
+  <h3 style="text-align: center;margin-left: 24%;color: white;">User Registration</h3>
+  <div class="col-md-10">
+    <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+
+      <div class="row">
+        <div class="form-group required col-md-6" style="display: inline">
+          <input class="form-control" placeholder="frist Name" formControlName="FristName" type="text" >
+          <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('FristName').touched && service.formModel.get('FristName').errors?.required">
+              this Frist Name is invaild .....
+          </div>
+        </div>
+
+        <div class="form-group required col-md-6" style="display: inline">
+          <input class="form-control" placeholder="last Name" formControlName="LastName" type="text" >
+          <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('LastName').touched && service.formModel.get('LastName').errors?.required">
+              this Last Name is invaild .....
+        </div>
+      </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="form-group col-md-12">
+          <input class="form-control" placeholder="User Name" formControlName="UserName" type="text" >
+          <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.minlength">
+              this User Name is invaild  and is Minimum 4 characters  .....
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <input class="form-control" placeholder="Email" formControlName="Email" type="email" > -->
+        <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid email address.</label> -->
+        <!-- <div class="alert alert-danger" role="alert" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">
+          this email is invaild .....
+        </div>
+      </div> -->
+
+      <!-- <div class="form-group">
+
+        <input class="form-control" formControlName="Phone" placeholder="phone...." type="text">
+      </div>
+      <div class="form-group">
+
+        <input class="form-control" formControlName="Address" placeholder="address...." type="text">
+      </div>
+      <div formGroupName="Passwords">
+        <div class="form-group required">
+
+          <input type="password" placeholder="Password..." class="form-control" formControlName="Password">
+          <div class="alert alert-danger" role="alert"  *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">
+              this Password is required.....
+            </div>
+            <div class="alert alert-danger" role="alert"  *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">
+                this Password is Minimum 4 characters .....
+              </div>
+
+         </div>
+        <div class="form-group required">
+          <input type="password" class="form-control" placeholder="confirm Password....." formControlName="ConfirmPassword">
+          <label  class="alert alert-danger" role="alert"  *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
+          <label class="text-danger" role="alert" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
+        </div>
+      </div>
+      <div class="form-group ">
+      <select class="form-control " (change)="changeRole($event)" formControlName="TypeRegistration">
+             <option selected class="dropdown-item" value="Client" for>Client</option>
+             <option *ngFor="let role of Roles"class="dropdown-item" [value]="role" for>{{role}}</option>
+
+            </select>
+
+      </div>
+      <div class="form-group " *ngIf="clientDiv">
+      <input type="submit" value="sign up" class="btn btn-primary">
+    </div>
+
+      <div class="form-group text-center " *ngIf="TrainerDiv">
+          <input type="text " class="form-control" placeholder="your job title " formControlName="JobTitle"><br>
+
+        <textarea class="form-control " style="margin-left: 20% ;width: 80%" placeholder="your OverView....." formControlName="OverView"></textarea><br>
+        <textarea class="form-control " style="margin-left: 20% ;width: 80%" placeholder="your Courses....." formControlName="Courses"></textarea><br>
+        <input type="text " class="form-control" placeholder="your training place " formControlName="Place">
+         <br>
+         <input type="text " class="form-control" placeholder="your Price Per Hour  " formControlName="PricePerHour">
+         <br>
+
+         <input type="submit" value="sign up" class="btn btn-primary">
+      </div> -->
+      <!-- Doctor Div  -->
+      <!-- <div class="form-group " *ngIf="doctorDiv">
+          <label class="form-control" > has Clinic</label>
+          <input type="checkbox" class="form-control" name="hasClinic" formControlName="hasClinic">Yes
+          <input type="checkbox" class="form-control" name="hasClinic" formControlName="NotHasClinic">NO
+          <input type="text" class="form-control"  placeholder="Your clinic" formControlName="doctorClinics">
+          <br>
+
+          <input type="submit" value="sign up" class="btn btn-primary">
+        </div> -->
+      <!-- div for house -->
+        <!-- <div class="form-group text-center " *ngIf="House">
+
+          <textarea class="form-control " style="margin-left: 20% ;width: 80%" placeholder="your Description ....." formControlName="Description "></textarea><br>
+          <input type="number " class="form-control" placeholder="your available place " formControlName="AvailablePlace ">
+           <br>
+           <input type="number " class="form-control" placeholder="your NumberOfRooms " formControlName="NumberOfRooms ">
+           <br>
+           <input type="number " class="form-control" placeholder="your PriceForNight  " formControlName="PriceForNight  ">
+           <br>
+
+           <input type="submit" value="sign up" class="btn btn-primary">
+        </div> -->
+
+      <!-- <div class="form-row">
+        <div class="form-group col-md-6 h-25 offset-md-2">
+          <button type="submit" class="btn  btn-success col-md-12" (click)="goNext()">NEXT</button>
+        </div>
+      </div> -->
+    <!-- </form>
+  </div>
+</div>
+<a class="btn btn-success" [routerLink]="['/Login']" routerLinkActive="router-link-active" >Login</a>
+ -->

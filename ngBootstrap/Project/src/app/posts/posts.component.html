@@ -1,0 +1,211 @@
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="container-fluid">
+  <div class="row">
+<div class="col-3">
+
+
+  <!-- Profile Image -->
+  <div class="card card-primary card-outline">
+    <div class="card-body box-profile">
+      <div class="text-center">
+        <img class="profile-user-img img-fluid img-circle" *ngIf="users.Photo!=null"
+          src="http://localhost:61646/Image/{{users.Photo}}" alt="User profile picture">
+        <img class="profile-user-img img-fluid img-circle" *ngIf="users.Photo==null"
+          src="../../assets/dist/img/avatar5.png" alt="User profile picture">
+      </div>
+
+      <h3 class="profile-username text-center">{{users.FirstName+' '+users.LastName}}</h3>
+
+      <p class="text-muted text-center">{{users.Email}}</p>
+
+      <ul class="list-group list-group-unbordered mb-3">
+        <li class="list-group-item">
+          <b>Phone</b> <a class="float-right">{{users.Phone}}</a>
+        </li>
+        <li class="list-group-item">
+          <b>Address</b> <a class="float-right">{{users.Address}}</a>
+        </li>
+        <li class="list-group-item">
+          <iframe width="250" height="250" frameborder="0" style="border:0" [src]="this.Addres | safesa"
+            webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </li>
+      </ul>
+
+      <a href="/Profile?Id={{users.Id}}" class="btn btn-primary btn-block"><b>My Profile</b></a>
+      <a href="/MyPostComponent" class="navbar-brand" class="btn btn-primary btn-block">My Posts</a>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+
+
+
+</div>
+
+  <div class="col-6">
+      <div >
+          <!--- \\\\\\\Post-->
+          <div class="card gedf-card">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="posts-tab" data-toggle="tab" role="tab" aria-controls="posts"
+                    aria-selected="true">Make
+                    a publication</a></li>
+                <li class="nav-item">
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                  <div class="form-group">
+                    <label class="sr-only" for="message">post</label>
+                    <textarea [(ngModel)]="post.Description" class="form-control" id="message" rows="3"
+                      placeholder="What are you thinking?"></textarea>
+                    <img *ngFor='let url of urls' [src]="url" style="width: 30%; height: 150px;padding: 2%"> <br />
+                    <input #myInput type='file' style="padding: 1%" (change)="onSelectFile($event)" multiple>
+                    <button (click)="reset()" style="float: right">Delete</button>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-toolbar justify-content-between">
+                <div class="btn-group">
+                  <button (click)="Share()" class="btn btn-primary">share</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Post /////-->
+
+          <!--- \\\\\\\Post-->
+          <div class="card gedf-card" *ngFor="let item of getPots$ | async ; let i = index">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="mr-2">
+
+                    <img class="rounded-circle" width="40" src="http://localhost:61646/Image/{{item.UserImage}}" alt="">
+
+                  </div>
+                  <div class="ml-2">
+
+                    <div class="h5 m-0">
+
+                      <a [routerLink]="['/Profile']" [queryParams]="{Id: item.UserId}">{{item.UserName}}</a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body">
+              <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{(item.PostDateTime | date:' MM/dd HH:mm')}}</div>
+              <p class="card-text">
+                {{item.Description}}
+              </p>
+              <img *ngFor='let item1 of item.postPhotos' style="width: 30%; height: 150px; padding: 2%"
+                src="http://localhost:61646/Image/{{item1}}">
+            </div>
+            <div class="card-footer">
+              <p style="display: inline-block;padding-left: 2%;padding-right: 1%">{{item.Likes}}</p><i
+                class="fa fa-thumbs-o-up"></i><br>
+              <button class="card-link" (click)="like(item.ID)"><i class="fa fa-thumbs-o-up"></i> Like</button>
+              <!-- <button class="card-link" id="replyb" (click)="toggle(item.ID)">
+                <i class="fa fa-comment"></i> Comment</button>
+              <button class="card-link"><i class="fa fa-mail-forward"></i> Share</button> -->
+              <br><br>
+              <div *ngFor='let item2 of item.Comments' style="flex-direction: row">
+
+                <div class="ml-2 row col-12">
+                  <div class="col-2">
+                    <img class="rounded-circle" width="60" src="http://localhost:61646/Image/{{item2.UserPhoto}}" alt="">
+                  </div>
+                  <div class="row">
+                    <div class="col-10">
+                      <a [routerLink]="['/Profile']" [queryParams]="{Id: item2.UserId}">{{item2.UserName}}</a>
+
+                    </div>
+                    <div class="col-12">
+                      <input type="text" class="form-control" [value]="item2.Description" readonly />
+                    </div>
+                    <div class="col-12">
+
+                      <i class="fa fa-clock-o"></i>{{(item2.CommentDateTime | date:' dd/MM/yyyy HH:mm')}}</div>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <!-- ////////////////////////////////////      Mina Makram////////////////////////////////////      Mina Makram////////////////////////////////////      Mina Makram////////////////////////////////////      Mina Makram -->
+
+              <!-- <div *ngIf="show"> -->
+              <br><input type="text" id="item.ID" class="form-control pull-right" #comment value=""
+                placeholder="Write a Comment..." (keydown)="keyDownFunction($event,item.ID,comment)" />
+              <!-- </div>   -->
+            </div>
+          </div>
+        </div>
+  </div>
+  <div class="col-3">
+
+
+
+    <!-- Profile Image -->
+    <div class="card card-primary card-outline">
+      <div class="card-body box-profile">
+
+
+        <ul class="list-group list-group-unbordered mb-3">
+            <li class="list-group-item">
+                <a href="/Animals" class="navbar-brand" class="btn btn-primary btn-block">Search For Animals</a>
+
+            </li>
+          <li class="list-group-item">
+        <a href="/Trainers" class="navbar-brand" class="btn btn-primary btn-block">Search For Trainers</a>
+
+          </li>
+          <li class="list-group-item">
+
+        <a href="/HomePets" class="navbar-brand" class="btn btn-primary btn-block">Search For Home Pets</a>
+
+          </li>
+          <li class="list-group-item">
+              <a href="/Doctors" class="navbar-brand" class="btn btn-primary btn-block">Search For Doctors</a>
+          </li>
+
+          <li class="list-group-item">
+              <a href="/Doctors" class="navbar-brand" class="btn btn-primary btn-block">Search For Clinics</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+
+
+  </div>
+</div>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

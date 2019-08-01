@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12 mt-3"  >
+        <form #myform="ngForm" (ngSubmit)="Search(myform)" class="form-row">
+          <div class="input-field col-12 col-md-6 ">
+            <input name="Name" id="Name" type="text" class="form-control mb-3" placeholder="search By Doctor Name"  ngModel>
+              </div>
+              <div class="input-field col-12 col-md-6 ">
+                <input name="address" id="address" type="text" class="form-control mb-3" placeholder="search By Clinic address"  ngModel>
+                </div>
+
+                <div class="input-field col col-6 col-md-4  mb-3 mt-3">
+                  <button type="submit" value="Search" class="btn btn-primary">Search</button>
+                </div>
+      </form>
+      </div>
+
+<div  class="col-12"  *ngIf="show"><p>Not FOUND</p></div>
+
+
+<div class="col-4 col-md-6 col-lg-3"  *ngFor="let Doctor of DoctorsAll  | paginate: { itemsPerPage: 6, currentPage: p }">
+  <div class="card" >
+    <img class="card-img-top"  src="http://localhost:61646/image/{{Doctor.user.Photo}}">
+
+    <div class="card-body">
+      <h5 class="card-title">Name : {{Doctor.user.UserName }}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">PhoneNumber :{{Doctor.user.PhoneNumber}}</li>
+
+    </ul>
+    <div class="card-body">
+      <a class="card-link" [routerLink]="['/Profile']" [queryParams]="{Id: Doctor.user.Id}">
+        Show Profile</a>
+    </div>
+  </div>
+    </div>
+    <div class="col-12">
+      <ul class="pagination">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </ul>
+        </div>
+  </div>

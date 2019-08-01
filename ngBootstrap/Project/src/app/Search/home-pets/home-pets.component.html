@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-12 mt-3"  >
+    <form #myform="ngForm" (ngSubmit)="Search(myform)"  class="form-row">
+          <div class="input-field col-12 col-md-3 ">
+
+            <input name="price" id="price" type="number" class="form-control mb-3" placeholder="search By price"  ngModel>
+              </div>
+              <div class="input-field col-12 col-md-3 ">
+
+                <input name="address" id="address" type="text" class="form-control mb-3" placeholder="search By address"  ngModel>
+                </div>
+                          <div class="input-field col-12 col-md-3 ">
+
+                  <input name="avaliable" id="avaliable" type="number" class="form-control mb-3" placeholder="search By Avaliable Room"  ngModel>
+                  </div>
+                  <div class="input-field col col-6 col-md-3  mb-3 ">
+                    <button type="submit" value="Search" class="btn btn-primary">Search</button>
+                  </div>
+              </form>
+      </div>
+  <div  class="col-12"  *ngIf="show"><p>Not FOUND</p></div>
+
+
+  <div class="col-4 col-md-6 col-lg-3" *ngFor="let Home of HomeAll  | paginate: { itemsPerPage: 6, currentPage: p }">
+    <div class="card" >
+      <img class="card-img-top"  src="http://localhost:61646/image/{{Home.HomePhotos[0]}}">
+
+      <div class="card-body">
+        <h5 class="card-title">Name : {{Home.User.UserName }}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">NumberOfRooms :{{Home.NumberOfRooms}}</li>
+        <li class="list-group-item">Price Per Hour :{{Home.PriceForNight |currency}}</li>
+        <li class="list-group-item">Description :{{Home.Description}}</li>
+      </ul>
+      <div class="card-body">
+        <a class="card-link" [routerLink]="['/Profile']" [queryParams]="{Id: Home.User.Id}">
+          Show Profile</a>
+      </div>
+    </div>
+      </div>
+      <div class="col-12">
+        <ul class="pagination">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </ul>
+          </div>
+    </div>
+
+

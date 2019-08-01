@@ -1,0 +1,175 @@
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/^1.12.2/themes/prism.css" />
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+   <!-- Ionicons -->
+   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <!-- Theme style -->
+   <link rel="stylesheet" href="./assets/dist/css/adminlte.min.css">
+   <!-- Google Font: Source Sans Pro -->
+   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<div class="wrapper">
+    <div class="wrapper">
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+                    <div class="text-center">
+                      <button class="btn btn-sm btn-outline-primary" *ngIf="isopen==true"  style="float: right" (click)="open(content)">Edit</button>
+                      <button class="btn btn-sm btn-outline-primary" *ngIf="isopen==true" (click)="open3(content3)" style="float: right">Change Photo</button>
+                      <br>
+                      <br>
+                      <img class="profile-user-img img-fluid img-circle" *ngIf="user.Photo!=null"
+                      src="http://localhost:61646/Image/{{user.Photo}}"
+                      alt="User profile picture">
+                      <img class="profile-user-img img-fluid img-circle" *ngIf="user.Photo==null"
+                      src="../../assets/dist/img/avatar5.png" alt="User profile picture">
+                    </div>
+
+                    <h3 class="profile-username text-center">{{user.FirstName+' '+user.LastName}}</h3>
+
+                    <p class="text-muted text-center">{{user.Email}}</p>
+
+                    <ul class="list-group list-group-unbordered mb-3">
+                      <li class="list-group-item">
+                        <b>Phone</b> <a class="float-right">{{user.Phone}}</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Address</b> <a class="float-right">{{user.Address}}</a>
+                      </li>
+                      <li class="list-group-item">
+                          <iframe  width="300" height="250" frameborder="0" style="border:0"
+                          [src]="this.Addres | Safe" webkitallowfullscreen mozallowfullscreen
+                          allowfullscreen></iframe>
+                      </li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+              </div>
+              <!-- About Me Box -->
+              <div class="card card-primary col-md-9" *ngIf="user.UserType==1">
+                <app-Trainer></app-Trainer>
+                <!-- /.card-body -->
+              </div>
+                <div class="card card-primary col-md-9" *ngIf="user.UserType==2">
+                  <app-HomePets></app-HomePets>
+                  <!-- /.card-body -->
+                </div>
+                <div class="card card-primary col-md-9" *ngIf="user.UserType==3">
+                  <app-Doctor></app-Doctor>
+                  <!-- /.card-body -->
+                  </div>
+                  <div class="card card-primary col-md-9" *ngIf="user.UserType==4">
+                    <app-Client></app-Client>
+                    <!-- /.card-body -->
+                    </div>
+
+                  <!-- /.card -->
+                  <!-- /.col -->
+
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+    </div>
+
+ <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <div class="modal-body">
+          <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+            <div class="form-group">
+              <label for="inputFName" class="col-sm-2 control-label">FirstName</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" #FirstName="ngModel" name="FirstName" placeholder="First Name" [(ngModel)]="this.user.FirstName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputLName" class="col-sm-2 control-label">LastName</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" #LastName="ngModel" name="LastName" placeholder="Last Name" [(ngModel)]="this.user.LastName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-sm-2 control-label">Email</label>
+
+              <div class="col-sm-10">
+                <input type="email" class="form-control" #Email="ngModel" name="Email" placeholder="Email" [(ngModel)]="this.user.Email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress" class="col-sm-2 control-label">Address</label>
+
+              <div class="col-sm-10">
+                <textarea class="form-control" #Address="ngModel" name="Address" placeholder="Address" [(ngModel)]="this.user.Address"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="col-sm-2 control-label">Phone</label>
+
+              <div class="col-sm-10">
+                <input type="Number" class="form-control" #Phone="ngModel" name="Phone" placeholder="Phone" [(ngModel)]="this.user.Phone">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button  class="btn btn-danger" >Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+  </ng-template>
+
+
+
+
+
+  <ng-template #content3 let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Profile Photo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+            <div class="form-group">
+                <label for="HomePetsPhoto" class="col-sm-4 control-label">Home Pets Photo</label>
+
+                <div class="col-sm-10">
+                    <input required type="file" class="form-control" #HomePetsPhoto="ngModel" name="HomePetsPhoto" placeholder="HomePetsPhoto"
+                    [(ngModel)]="this.user.Photo" (change)="handleFileInput($event.target.files)">
+                 </div>
+            </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-danger">Save</button>
+                  </div>
+                </div>
+    </form>
+    </div>
+  </ng-template>

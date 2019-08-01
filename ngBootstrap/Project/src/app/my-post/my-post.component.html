@@ -1,0 +1,91 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<div class="card gedf-card" *ngFor="let item of getPots ; let i = index" style="width: 50%;margin-left:25%;margin-bottom: 2%;">
+  <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="mr-2">
+                  <!-- ////////////////////////////////////      Mina Makram ////////////////////////////////////      Mina Makram-->
+                  <img class="rounded-circle" width="45" src="http://localhost:61646/Image/{{item.UserImage}}" alt="">
+                    <!-- ////////////////////////////////////      Mina Makram ////////////////////////////////////      Mina Makram-->
+              </div>
+              <div class="ml-2">
+                  <!-- ////////////////////////////////////      Mina Makram ////////////////////////////////////      Mina Makram-->
+                  <a [routerLink]="['/Profile']" [queryParams]="{Id: item.UserId}">{{item.UserName}}</a>
+                    <!-- ////////////////////////////////////      Mina Makram ////////////////////////////////////      Mina Makram-->
+              </div>
+          </div>
+          <div>
+            <div class="btn-group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-link" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="fa fa-ellipsis-h"></i>
+                </button>
+                <div class="dropdown-menu dropdown-primary">
+                    <a class="dropdown-item btn" (click)="Select(item)">Update</a>
+                    <a class="dropdown-item btn"(click)="del(item.ID)">Delete</a>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="card-body">
+      <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{(item.PostDateTime | date:' MM/dd HH:mm')}}</div>
+      <p class="card-text">
+          {{item.Description}}
+      </p>
+      <img *ngFor='let item1 of item.postPhotos' style="width: 30%; height: 150px; padding: 2%" src="http://localhost:61646/Image/{{item1}}">
+
+      <!-- <img *ngFor='let item1 of item.PostPhotos' style="width: 30%; height: 150px; padding: 2%" src="http://localhost:61646/Image/{{item1.Image}}"> -->
+  </div>
+  <div class="card-footer">
+    <p style="display: inline-block;padding-left: 2%;padding-right: 1%">{{item.Likes}}</p><i class="fa fa-thumbs-o-up"></i><br>
+<!-- <button class="card-link" (click)="like(item.ID)"><i class="fa fa-thumbs-o-up"></i> Like</button>
+<button class="card-link" id="replyb" (click)="toggle(item.ID)">
+    <i class="fa fa-comment"></i> Comment</button>
+<button class="card-link"><i class="fa fa-mail-forward"></i> Share</button> -->
+<br><br>
+<div  *ngFor='let item2 of item.Comments' style="flex-direction: row">
+
+<div class="ml-2 row col-12">
+  <div class="col-2">
+      <img class="rounded-circle" width="60" src="http://localhost:61646/Image/{{item2.UserPhoto}}" alt="" >
+      </div>
+<div class="row">
+<div class="col-10">
+  <a [routerLink]="['/Profile']" [queryParams]="{Id: item2.UserId}">{{item2.UserName}}</a>
+
+</div>
+    <div class="col-12">
+        <input type="text" class="form-control"
+        [value]="item2.Description" readonly />
+        </div>
+        <div class="col-12" >
+
+            <i class="fa fa-clock-o"></i>{{(item2.CommentDateTime | date:' dd/MM/yyyy HH:mm')}}</div>
+        </div>
+</div>
+
+
+</div>
+
+
+<!-- <div *ngIf="show"> -->
+  <br><input type="text" id="item.ID" class="form-control pull-right" [(ngModel)]='comment'
+  placeholder="Write a Comment..." (keydown)="keyDownFunction($event,item.ID,comment)"/>
+<!-- </div>   -->
+</div>
+
+</div>

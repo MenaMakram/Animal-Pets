@@ -1,0 +1,237 @@
+<div class="">
+
+
+
+  </div>
+  <div class="card-header">
+    <h3 class="card-title">About Me
+  </h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <strong><i class="fas fa-person-booth mr-1"></i> Job Title</strong>
+
+    <p class="text-muted">
+        Veterinary Doctor
+    </p>
+
+    <hr>
+    <div *ngIf="doctor.HasClinic == false">
+    <strong><i class="fas fa-map-marker-alt mr-1"></i>Clinics </strong>
+
+
+    <p class="text-muted">has no Clinics </p>
+
+    <hr>
+    </div>
+    <div *ngIf="doctor.HasClinic == true">
+        <strong><i class="fas fa-map-marker-alt mr-1"  ></i>Clinics </strong>
+    <button class="btn btn-sm btn-outline-primary" style="float: right" *ngIf="isopen"   (click)="open1(content1)">Add</button>
+
+<br><br>
+        <div class="row">
+        <div class="card" style="width: 18rem;" *ngFor="let item of doctor.Clinics" >
+            <div class="card-body">
+    <button class="btn btn-sm btn-outline-primary" style="float: right" *ngIf="isopen"  (click)="open(content,item)">Edit</button>
+    <button class="btn btn-sm btn-outline-primary" style="float: right" *ngIf="isopen"  (click)="open2(content2,item)">Delete</button>
+<br>
+              <h5 class="card-title">{{item.Name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Phone : {{item.Phone}}</h6>
+              <p class="card-text">Address : {{item.Address}}</p>
+              <p>
+                <iframe  width="250" height="250" frameborder="0" style="border:0"
+              [src]="'https://www.google.com/maps/embed/v1/place?key=AIzaSyDsdf8mocPYJB3GfPWL62RMnp_c-19kMXY&q='+item.Address | safes" webkitallowfullscreen mozallowfullscreen
+              allowfullscreen></iframe>
+              </p>
+
+              <div style="color: cornflowerblue">
+
+                <p>
+                  <br>
+                Start Date: {{item.StartDate}}
+                  <br>
+                  End Date: {{item.EndDate}}
+                  <br>
+                  Start Time: {{item.StartTime }}
+                  <br>
+                  End Time: {{item.EndTime}}
+                  <br>
+              </p>
+            </div>
+            </div>
+
+          </div>
+          </div>
+        <hr>
+        </div>
+  </div>
+  <ng-template #content let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <div class="modal-body">
+        <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+          <div class="form-group">
+            <label for="Name" class="col-sm-2 control-label">Name</label>
+
+            <div class="col-sm-10">
+              <textarea type="text" class="form-control" #Name="ngModel" name="Name" placeholder="Name" [(ngModel)]="this.clinic.Name"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Phone" class="col-sm-2 control-label">Phone</label>
+
+            <div class="col-sm-10">
+              <input type="number" class="form-control" #Phone="ngModel" name="Phone" placeholder="Phone" [(ngModel)]="this.clinic.Phone">
+
+            </div>
+          </div>
+              <div class="form-group">
+                  <label for="Address" class="col-sm-2 control-label">Address</label>
+
+                  <div class="col-sm-10">
+                    <textarea  class="form-control" #Address="ngModel" name="Address" placeholder="Address" [(ngModel)]="this.clinic.Address"></textarea>
+                  </div>
+                </div>
+          <div class="form-group">
+              <label for="StartDate" class="col-sm-4 control-label">StartDate</label>
+              <div class="col-sm-10">
+                  <select class="form-control" #StartDate="ngModel" name="StartDate" placeholder="StartDate"
+
+                  [(ngModel)]="this.clinic.StartDate">
+                  <option *ngFor="let item of Week"  value="{{item}}">{{item}}</option>
+                </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="EndDate" class="col-sm-4 control-label">EndDate</label>
+              <div class="col-sm-10">
+                  <select class="form-control" #EndDate="ngModel" name="EndDate" placeholder="EndDate"
+
+                  [(ngModel)]="this.clinic.EndDate">
+                  <option *ngFor="let item of Week"  value="{{item}}">{{item}}</option>
+                </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="StartTime" class="col-sm-2 control-label">StartTime</label>
+
+              <div class="col-sm-10">
+                <input type="time" class="form-control" #StartTime="ngModel" name="StartTime" placeholder="StartTime" [(ngModel)]="this.clinic.StartTime">
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="EndTime" class="col-sm-2 control-label">EndTime</label>
+
+                <div class="col-sm-10">
+                  <input type="time" class="form-control" #EndTime="ngModel" name="EndTime" placeholder="EndTime" [(ngModel)]="this.clinic.EndTime">
+                </div>
+              </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button  class="btn btn-danger" >Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </ng-template>
+
+  <ng-template #content1 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <div class="modal-body">
+      <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+        <div class="form-group">
+          <label for="Name" class="col-sm-2 control-label">Name</label>
+
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control" #Name="ngModel" name="Name" placeholder="Name" [(ngModel)]="this.clinic.Name"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Phone" class="col-sm-2 control-label">Phone</label>
+
+          <div class="col-sm-10">
+            <input type="number" class="form-control" #Phone="ngModel" name="Phone" placeholder="Phone" [(ngModel)]="this.clinic.Phone">
+
+          </div>
+        </div>
+            <div class="form-group">
+                <label for="Address" class="col-sm-2 control-label">Address</label>
+
+                <div class="col-sm-10">
+                  <textarea  class="form-control" #Address="ngModel" name="Address" placeholder="Address" [(ngModel)]="this.clinic.Address"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="StartDate" class="col-sm-4 control-label">StartDate</label>
+                <div class="col-sm-10">
+                    <select class="form-control" #StartDate="ngModel" name="StartDate" placeholder="StartDate"
+
+                    [(ngModel)]="this.clinic.StartDate">
+                    <option *ngFor="let item of Week"  value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="EndDate" class="col-sm-4 control-label">EndDate</label>
+                <div class="col-sm-10">
+                    <select class="form-control" #EndDate="ngModel" name="EndDate" placeholder="EndDate"
+
+                    [(ngModel)]="this.clinic.EndDate">
+                    <option *ngFor="let item of Week"  value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+            </div>
+        <div class="form-group">
+            <label for="StartTime" class="col-sm-2 control-label">StartTime</label>
+
+            <div class="col-sm-10">
+              <input type="time" class="form-control" #StartTime="ngModel" name="StartTime" placeholder="StartTime" [(ngModel)]="this.clinic.StartTime">
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="EndTime" class="col-sm-2 control-label">EndTime</label>
+
+              <div class="col-sm-10">
+                <input type="time" class="form-control" #EndTime="ngModel" name="EndTime" placeholder="EndTime" [(ngModel)]="this.clinic.EndTime">
+              </div>
+            </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button  class="btn btn-danger" >Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile Delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+<div class="modal-body">
+    <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+
+        <div class="form-group">
+            <p>Are You Sure delete this clinic?</p>
+          </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10" >
+          <button  class="btn btn-danger" >Yes</button>
+          <button  class="btn btn-primary" (click)="modal.dismiss('Cross click')">No</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -1,0 +1,475 @@
+<div class="">
+</div>
+<div class="card-header">
+  <h3 class="card-title">About Me
+  </h3>
+</div>
+<!-- /.card-header -->
+<div class="card-body">
+  <strong><i class="fas fa-person-booth mr-1"></i> Job Title</strong>
+
+  <p class="text-muted">
+    Animal Breeder
+  </p>
+
+  <hr>
+  <strong><i class="fas fa-dog mr-1"></i>Animals </strong>
+  <button class="btn btn-sm btn-outline-primary" style="float: right" *ngIf="isopen"  (click)="open1(content1)">Add</button>
+
+  <br><br>
+  <div class="row">
+    <div class="card" style="width: 18rem;" *ngFor="let item of client.Animals">
+      <div class="card-body">
+        <button class="btn btn-sm btn-outline-primary" style="float: right" *ngIf="isopen"  (click)="open(content,item,item.ID)">Edit</button>
+        <button class="btn btn-sm btn-outline-primary" style="float: right" *ngIf="isopen"
+          (click)="open2(content2,item)">Delete</button>
+
+        <h5 class="card-title">{{item.Name}}</h5>
+        <br>
+        <ngb-carousel *ngIf="item.animalPhoto != null">
+          <ng-template ngbSlide *ngFor="let photo of item.animalPhoto" style="width: 50%;height: 50%;">
+            <img src="http://localhost:61646/Image/{{photo.Image}}" alt="Random first slide" width="100%" height="100%">
+            <div class="carousel-caption">
+              <button class="btn btn-sm btn-outline-light" *ngIf="isopen"  (click)="deletePhoto(photo.ID)">X</button>
+            </div>
+          </ng-template>
+
+        </ngb-carousel>
+        <br>
+        <h6 class="card-subtitle mb-2 text-muted">Type : {{item.Type}}</h6>
+        <p class="card-text">Description : <br> {{item.Description}}</p>
+        <div style="color: cornflowerblue">
+          <p>
+            Category Name: {{item.CategoryName}}
+            <br>
+            age : {{item.age}} mon
+            <br>
+            Gender : {{item.Gender}}
+            <br>
+            Status : {{item.status? 'Married' : 'Single' }}
+            <br>
+            Married Salary: ${{item.MarriedSalary}}
+            <br>
+            Sons Count: {{item.SonsCount}}
+            <br>
+            Married Count: {{item.MarriedCount}}
+            <br>
+            Available For Bill: {{item.AvailableForBill? 'yes':'No'}}
+            <br>
+            Available Married: {{item.AvailableMarried? 'yes':'No'}}
+            <br>
+          </p>
+        </div>
+        <button class="btn btn-sm btn-outline-primary" *ngIf="isopen==true"  (click)="open3(content3,item)">Add Photo</button>
+
+      </div>
+
+    </div>
+  </div>
+  <hr>
+
+</div>
+<!-- <ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+      <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">Name</label>
+
+        <div class="col-sm-10">
+          <textarea type="text" class="form-control" #Name="ngModel" name="Name" placeholder="Name"
+            [(ngModel)]="this.clinic.Name"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Phone" class="col-sm-2 control-label">Phone</label>
+
+        <div class="col-sm-10">
+          <input required type="number" class="form-control" #Phone="ngModel" name="Phone" placeholder="Phone"
+            [(ngModel)]="this.clinic.Phone">
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Address" class="col-sm-2 control-label">Address</label>
+
+        <div class="col-sm-10">
+          <textarea class="form-control" #Address="ngModel" name="Address" placeholder="Address"
+            [(ngModel)]="this.clinic.Address"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="StartDate" class="col-sm-2 control-label">StartDate</label>
+
+        <div class="col-sm-10">
+          <input required type="text" class="form-control" #StartDate="ngModel" name="StartDate" placeholder="StartDate"
+            [(ngModel)]="this.clinic.StartDate">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="EndDate" class="col-sm-2 control-label">EndDate</label>
+
+        <div class="col-sm-10">
+          <input required type="text" class="form-control" #EndDate="ngModel" name="EndDate" placeholder="EndDate"
+            [(ngModel)]="this.clinic.EndDate">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="StartTime" class="col-sm-2 control-label">StartTime</label>
+
+        <div class="col-sm-10">
+          <input required type="text" class="form-control" #StartTime="ngModel" name="StartTime" placeholder="StartTime"
+            [(ngModel)]="this.clinic.StartTime">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="EndTime" class="col-sm-2 control-label">EndTime</label>
+
+        <div class="col-sm-10">
+          <input required type="text" class="form-control" #EndTime="ngModel" name="EndTime" placeholder="EndTime"
+            [(ngModel)]="this.clinic.EndTime">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-danger">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template> -->
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+
+        <div class="form-group">
+          <label for="Name" class="col-sm-2 control-label">Name</label>
+
+          <div class="col-sm-10">
+            <input required type="text" class="form-control" #Name="ngModel" name="Name" placeholder="Name"
+              [(ngModel)]="this.animals.Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Type" class="col-sm-2 control-label">Type</label>
+
+          <div class="col-sm-10">
+            <input required type="text" class="form-control" #Type="ngModel" name="Type" placeholder="Type"
+              [(ngModel)]="this.animals.Type">
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Description" class="col-sm-2 control-label">Description</label>
+
+          <div class="col-sm-10">
+            <textarea class="form-control" #Description="ngModel" name="Description" placeholder="Description"
+              [(ngModel)]="this.animals.Description"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="CategoryID" class="col-sm-4 control-label">Category</label>
+
+            <div class="col-sm-10">
+              <select class="form-control" #CategoryID="ngModel" name="CategoryID" placeholder="CategoryID"
+
+                [(ngModel)]="this.animals.CategoryID">
+                <option *ngFor="let item of catList"  value="{{item.ID}}">{{item.Name}}</option>
+                </select>
+            </div>
+          </div>
+        <div class="form-group">
+            <label for="Gender" class="col-sm-4 control-label">Gender</label>
+
+            <div class="col-sm-10">
+              <select class="form-control" #Gender="ngModel" name="Gender" placeholder="Gender"
+
+                [(ngModel)]="this.animals.Gender">
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+                </select>
+            </div>
+          </div>
+        <div class="form-group">
+          <label for="Age" class="col-sm-4 control-label">Age (In Month)</label>
+
+          <div class="col-sm-10">
+            <input required type="number" class="form-control" #Age="ngModel" name="Age" placeholder="Age"
+              [(ngModel)]="this.animals.age">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="MarriedCount" class="col-sm-4 control-label">Married Count</label>
+
+          <div class="col-sm-10">
+            <input required type="number" class="form-control" #MarriedCount="ngModel" name="MarriedCount"
+              placeholder="MarriedCount" [(ngModel)]="this.animals.MarriedCount">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="SonsCount" class="col-sm-4 control-label">Sons Count</label>
+
+          <div class="col-sm-10">
+            <input required type="number" class="form-control" #SonsCount="ngModel" name="SonsCount" placeholder="SonsCount"
+              [(ngModel)]="this.animals.SonsCount">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="MarriedSalary" class="col-sm-4 control-label">Married Salary</label>
+
+          <div class="col-sm-10">
+            <input required type="number" class="form-control" #MarriedSalary="ngModel" name="MarriedSalary"
+              placeholder="MarriedSalary" [(ngModel)]="this.animals.MarriedSalary">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="status" class="col-sm-4 control-label">status</label>
+
+          <div class="col-sm-10">
+            <select class="form-control" #status="ngModel" name="status" placeholder="Status"
+
+            [(ngModel)]="this.animals.status">
+            <option value="false">Single</option>
+            <option value="true" selected>Married</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="AvailableMarried" class="col-sm-4 control-label">Available Married</label>
+
+        <div class="col-sm-10">
+          <select class="form-control" #AvailableMarried="ngModel" name="AvailableMarried" placeholder="AvailableMarried"
+
+          [(ngModel)]="this.animals.AvailableMarried">
+          <option value="true" selected>Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="AvailableForBill" class="col-sm-4 control-label">Available For Bill</label>
+
+      <div class="col-sm-10">
+        <select class="form-control" #AvailableForBill="ngModel" name="AvailableForBill" placeholder="AvailableForBill"
+
+        [(ngModel)]="this.animals.AvailableForBill">
+        <option value="true" selected>Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+  </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-danger">Save</button>
+        </div>
+      </div>
+  </form>
+  </div>
+  </ng-template>
+
+
+<ng-template #content3 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Animal Photo</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+          <div class="form-group">
+              <label for="AnimalPhoto" class="col-sm-4 control-label">Animal Photos</label>
+
+              <div class="col-sm-10">
+                  <input required type="file" class="form-control" #AnimalPhoto="ngModel" name="AnimalPhoto" placeholder="AnimalPhoto"
+                  [(ngModel)]="this.animals.animalPhoto" (change)="handleFileInput($event.target.files)" multiple>
+               </div>
+          </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button class="btn btn-danger">Save</button>
+                </div>
+              </div>
+  </form>
+  </div>
+</ng-template>
+
+
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+
+      <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">Name</label>
+
+        <div class="col-sm-10">
+          <input required type="text" class="form-control" #Name="ngModel" name="Name" placeholder="Name"
+            [(ngModel)]="this.animals.Name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Type" class="col-sm-2 control-label">Type</label>
+
+        <div class="col-sm-10">
+          <input required type="text" class="form-control" #Type="ngModel" name="Type" placeholder="Type"
+            [(ngModel)]="this.animals.Type">
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Description" class="col-sm-2 control-label">Description</label>
+
+        <div class="col-sm-10">
+          <textarea class="form-control" #Description="ngModel" name="Description" placeholder="Description"
+            [(ngModel)]="this.animals.Description"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="CategoryID" class="col-sm-4 control-label">Category</label>
+
+          <div class="col-sm-10">
+            <select class="form-control" #CategoryID="ngModel" name="CategoryID" placeholder="CategoryID"
+
+              [(ngModel)]="this.animals.CategoryID">
+              <option *ngFor="let item of catList"  value="{{item.ID}}">{{item.Name}}</option>
+              </select>
+          </div>
+        </div>
+      <div class="form-group">
+          <label for="Gender" class="col-sm-4 control-label">Gender</label>
+
+          <div class="col-sm-10">
+            <select class="form-control" #Gender="ngModel" name="Gender" placeholder="Gender"
+
+              [(ngModel)]="this.animals.Gender">
+              <option value="Male" selected>Male</option>
+              <option value="Female">Female</option>
+              </select>
+          </div>
+        </div>
+      <div class="form-group">
+        <label for="Age" class="col-sm-4 control-label">Age (In Month)</label>
+
+        <div class="col-sm-10">
+          <input required type="number" class="form-control" #Age="ngModel" name="Age" placeholder="Age"
+            [(ngModel)]="this.animals.age">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="MarriedCount" class="col-sm-4 control-label">Married Count</label>
+
+        <div class="col-sm-10">
+          <input required type="number" class="form-control" #MarriedCount="ngModel" name="MarriedCount"
+            placeholder="MarriedCount" [(ngModel)]="this.animals.MarriedCount">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="SonsCount" class="col-sm-4 control-label">Sons Count</label>
+
+        <div class="col-sm-10">
+          <input required type="number" class="form-control" #SonsCount="ngModel" name="SonsCount" placeholder="SonsCount"
+            [(ngModel)]="this.animals.SonsCount">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="MarriedSalary" class="col-sm-4 control-label">Married Salary</label>
+
+        <div class="col-sm-10">
+          <input required type="number" class="form-control" #MarriedSalary="ngModel" name="MarriedSalary"
+            placeholder="MarriedSalary" [(ngModel)]="this.animals.MarriedSalary">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="status" class="col-sm-4 control-label">status</label>
+        <div class="col-sm-10">
+            <select class="form-control" #status="ngModel" name="status" placeholder="Status"
+
+            [(ngModel)]="this.animals.status">
+            <option value="false">Single</option>
+            <option value="true" selected>Married</option>
+          </select>
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="AvailableMarried" class="col-sm-4 control-label">Available Married</label>
+
+      <div class="col-sm-10">
+        <select class="form-control" #AvailableMarried="ngModel" name="AvailableMarried" placeholder="AvailableMarried"
+
+        [(ngModel)]="this.animals.AvailableMarried">
+        <option value="true" selected>Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="AvailableForBill" class="col-sm-4 control-label">Available For Bill</label>
+
+    <div class="col-sm-10">
+      <select class="form-control" #AvailableForBill="ngModel" name="AvailableForBill" placeholder="AvailableForBill"
+
+      [(ngModel)]="this.animals.AvailableForBill">
+      <option value="true" selected>Yes</option>
+      <option value="false">No</option>
+    </select>
+  </div>
+</div>
+<div class="form-group">
+    <label for="AnimalPhoto" class="col-sm-4 control-label">Animal Photos</label>
+
+    <div class="col-sm-10">
+        <input required type="file" class="form-control" #AnimalPhoto="ngModel" name="AnimalPhoto" placeholder="AnimalPhoto"
+        [(ngModel)]="this.animals.animalPhoto" (change)="handleFileInput($event.target.files)" multiple>
+     </div>
+</div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-danger">Save</button>
+      </div>
+    </div>
+</form>
+</div>
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile Delete</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+
+      <div class="form-group">
+        <p>Are You Sure delete this Animals?</p>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-danger">Yes</button>
+          <button class="btn btn-primary" (click)="modal.dismiss('Cross click')">No</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

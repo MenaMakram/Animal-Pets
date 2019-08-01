@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-12 "  >
+      <div  class="col-12"><p>Choose one or all search filed</p></div>
+
+    <form #myform="ngForm" (ngSubmit)="Search(myform)" class="form-row ">
+        <div class="input-group  col-6 col-md-4">
+            <input name="address" id="address" type="text" class="form-control mb-3" placeholder="search By Owner address"  ngModel>
+          </div>
+          <div class="input-field col col-6 col-md-4">
+            <input name="age" id="age" type="number" class="form-control"  placeholder="search By  age"  ngModel>
+            </div>
+            <div class="input-field col col-6 col-md-4">
+              <input name="MarriedCount" id="MarriedCount" type="number" class="form-control"  placeholder="search By MarriedCount"  ngModel>
+            </div>
+            <div class="input-field col col-6 col-md-4">
+              <input name="Type" id="Type" type="text" class="form-control"  placeholder="search By  Type"  ngModel>
+              </div>
+              <div class="input-field col col-6 col-md-4">
+
+                    <select class="form-control" name="gander" ngModel>
+                        <option value="" disabled selected>Choose your gander</option>
+
+                        <option *ngFor="let ganders of gander" [value]="ganders">{{ganders}}</option>
+                    </select>
+               </div>
+               <div class="input-field col col-6 col-md-4">
+
+                  <select class="form-control" name="category" ngModel>
+                      <option value="" disabled selected>Choose your category</option>
+
+                      <option *ngFor="let categorys of category" [value]="categorys.Name">{{categorys.Name}}</option>
+                  </select>
+             </div>
+             <div class="input-field col col-6 col-md-4  mb-3 mt-3">
+              <button type="submit" value="Search" class="btn btn-primary">Search</button>
+            </div>
+  </form>
+  </div>
+
+
+
+<div class="col-4 col-md-6 col-lg-3"  *ngFor="let Animal  of AnimalsAll | paginate: { itemsPerPage: 6, currentPage: p }">
+
+  <div class="card" >
+    <img class="card-img-top"  src="http://localhost:61646/image/{{Animal.AnimalPhotos[0]}}">
+
+    <div class="card-body">
+      <h5 class="card-title">Name : {{Animal.Name}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">age :{{Animal.age}}</li>
+      <li class="list-group-item">category :{{Animal.category}}</li>
+      <li class="list-group-item">Type :{{Animal.Type}}</li>
+      <li class="list-group-item">Gender :{{Animal.Gender}}</li>
+      <li class="list-group-item">Description :{{Animal.Description}}</li>
+
+    </ul>
+    <div class="card-body">
+      <a class="card-link" [routerLink]="['/Profile']" [queryParams]="{Id: Animal.user.Id}">
+        Show Profile</a>
+    </div>
+  </div>
+    </div>
+    <div class="col-12">
+      <ul class="pagination">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </ul>
+        </div>
+  </div>
+

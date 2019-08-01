@@ -1,0 +1,42 @@
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+crossorigin="anonymous"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<div class="card gedf-card"  style="width: 50%;margin-left:25%;margin-bottom: 2%;">
+    <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                <div class="mr-2">
+
+                    <img class="rounded-circle" width="45" src="http://localhost:61646/Image/{{getPots.UserImage}}" alt="">
+
+                </div>
+                <div class="ml-2">
+
+                    <div class="h5 m-0">{{getPots.UserName}}</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{(getPots.PostDateTime | date:' MM/dd HH:mm')}}</div>
+        <textarea rows="3" class="form-control card-text" [value]="getPots.Description" [(ngModel)]="post.Description" ></textarea><br>
+        <img *ngFor='let item1 of getPots.postPhotos' src="http://localhost:61646/Image/{{item1}}" style="width: 30%; height: 150px; padding-right: 2%;padding-left: 2%">
+        <img *ngFor='let url of urls'  [src]="url" style="width: 30%; height: 150px;padding: 2%" > <br/>
+        <input  #myInput type='file' style="padding: 1%" (change)="onSelectFile($event)" multiple><br>
+        <button (click)="reset()" style="margin-left: 1%">Delete</button>
+        <br><button class="btn btn-primary" style="float: right" (click)="Update()">Done</button>
+    </div>
+</div>

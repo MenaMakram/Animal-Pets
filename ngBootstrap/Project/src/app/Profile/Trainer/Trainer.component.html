@@ -1,0 +1,102 @@
+<div class="">
+
+
+
+  </div>
+  <div class="card-header">
+    <h3 class="card-title">About Me
+    <button class="btn btn-sm btn-outline-light" style="float: right" *ngIf="isopen"  (click)="open(content)">Edit</button>
+  </h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <strong><i class="fas fa-person-booth mr-1"></i> Job Title</strong>
+
+    <p class="text-muted">
+      {{trainer.JobTitle}}
+    </p>
+
+    <hr>
+    <strong><i class="fas fa-book mr-1"></i> OverView</strong>
+
+    <p class="text-muted">
+      {{trainer.Overview}}
+    </p>
+
+    <hr>
+
+    <strong><i class="fas fa-map-marker-alt mr-1"></i>Training Location</strong>
+
+    <p class="text-muted">{{trainer.TrainePlace}}
+
+    </p>
+    <iframe  width="600" height="250" frameborder="0" style="border:0;"
+    [src]="'https://www.google.com/maps/embed/v1/place?key=AIzaSyDsdf8mocPYJB3GfPWL62RMnp_c-19kMXY&q='+trainer.TrainePlace | safess" webkitallowfullscreen mozallowfullscreen
+    allowfullscreen></iframe>
+    <hr>
+
+    <strong><i class="fas fa-pencil-alt mr-1"></i> Courses</strong>
+
+    <p class="text-muted">
+      {{trainer.Courses}}
+    </p>
+
+    <hr>
+
+    <strong><i class="far fa-money-bill-alt  mr-1"></i> Price Per Hour</strong>
+
+    <p class="text-muted">{{trainer.PricePerHour}}$</p>
+  </div>
+  <ng-template #content let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <div class="modal-body">
+        <form class="form-horizontal" #ProfileUpdateForm="ngForm" (submit)="modal.close(ProfileUpdateForm)">
+          <div class="form-group">
+            <label for="inputFName" class="col-sm-2 control-label">JobTitle</label>
+
+            <div class="col-sm-10">
+              <input type="text" class="form-control" #JobTitle="ngModel" name="JobTitle" placeholder="JobTitle" [(ngModel)]="this.trainer.JobTitle">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Overview" class="col-sm-2 control-label">Overview</label>
+
+            <div class="col-sm-10">
+              <textarea class="form-control" #Overview="ngModel" name="Overview" placeholder="Overview" [(ngModel)]="this.trainer.Overview"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Courses" class="col-sm-2 control-label">Courses</label>
+
+            <div class="col-sm-10">
+              <textarea class="form-control" #Courses="ngModel" name="Courses" placeholder="Courses" [(ngModel)]="this.trainer.Courses"></textarea>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="PricePerHour" class="col-sm-2 control-label">PricePerHour</label>
+
+            <div class="col-sm-10">
+              <input type="number" class="form-control" #PricePerHour="ngModel" name="PricePerHour" placeholder="PricePerHour" [(ngModel)]="this.trainer.PricePerHour">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="TrainePlace" class="col-sm-2 control-label">TrainePlace</label>
+
+            <div class="col-sm-10">
+              <input type="text" class="form-control" #TrainePlace="ngModel" name="TrainePlace" placeholder="TrainePlace" [(ngModel)]="this.trainer.TrainePlace">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button  class="btn btn-danger" >Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+</ng-template>
